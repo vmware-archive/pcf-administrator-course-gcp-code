@@ -1,0 +1,4 @@
+director/creds.yml
+director/gcp_credentials.json
+director/state.json
+director/rootCA.pem

@@ -1,0 +1,69 @@
+---
+name: datadog-nozzle
+
+releases:
+- name: datadog-firehose-nozzle
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/datadog-firehose-nozzle-release?v=59
+  version: 59
+  sha: 6ebe59075bde3be44c6a788fdd02a07b7d950aee
+
+update:
+  canaries: 1
+  canary_watch_time: 30000-300000
+  update_watch_time: 30000-300000
+  max_in_flight: 1
+  max_errors: 2
+  serial: true
+
+
+instance_groups:
+- name: datadog-firehose-nozzle
+  instances: 1
+  stemcell: bosh-google-kvm-ubuntu-trusty-go_agent
+  azs:
+    - us-central1-a
+  vm_type: small
+  vm_extensions: 
+  - public_ip
+  networks:
+  - name: bosh-subnet
+    default:
+    - dns
+    - gateway
+    static_ips:
+    - 10.0.1.45
+  jobs:
+  - name: datadog-firehose-nozzle
+    release: datadog-firehose-nozzle
+  properties:
+    loggregator:
+      traffic_controller_url: ((traffic_controller_url))
+    datadog:
+      api_url: https://app.datadoghq.com/api/v1/series
+      api_key: ((datadog_api_key))
+      flush_duration_seconds: 15
+      metric_prefix: datadog.nozzle.
+    uaa:
+      url: ((uaa_url))
+      client: datadog-firehose-user
+      client_secret: datadog-firehose-password
+    nozzle:
+      insecure_ssl_skip_verify: true
+      subscription_id: d4t4d0g
+      deployment: ((cf_deployment))
+
+stemcells:
+- alias: bosh-google-kvm-ubuntu-trusty-go_agent
+  os: ubuntu-trusty
+  version: "3363.19"
+
+variables:
+- name: traffic_controller_url
+  type: string
+- name: datadog_api_key
+  type: string
+- name: uaa_url
+  type: string
+- name: cf_deployment
+  type: string
+

@@ -1,0 +1,10 @@
+---
+- type: replace
+  path: /resource_pools/name=vms/stemcell?
+  value:
+    url: https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3363.19
+    sha1: f505934250aabb2855d1f9150b15d0ef64e68af2
+
+- type: replace
+  path: /resource_pools/name=vms/cloud_properties/ephemeral_external_ip?
+  value: true
