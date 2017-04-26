@@ -6,5 +6,5 @@ You need to set the following environment variables to use this script:
   * ops_man_password
   
 ```bash
-piv_net_token=abc1234 ops_man_username=admin ops_man_password=xyz789 ./fetch_ops_man.sh
+piv_net_token=abc1234 ops_man_username=admin ops_man_password=xyz789 ./fetch_elastic_runtime.sh
 ```
