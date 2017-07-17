@@ -18,7 +18,7 @@ data "google_iam_policy" "opsman_policy" {
   }
 
   binding {
-    role = "roles/compute.instanceAdmin"
+    role = "roles/compute.instanceAdmin.v1"
 
     members = [
       "serviceAccount:${google_service_account.opsman_service_account.email}",
