@@ -12,6 +12,11 @@ if [ -z "$env_name" ]; then
     exit 1
 fi
 
+if [ -z "$zone" ]; then
+    echo "must set zone before running $0"
+    exit 1
+fi
+
 bosh2 create-env bosh-deployment/bosh.yml -n \
   -o bosh-deployment/gcp/cpi.yml \
   -o bosh-deployment/gcp/service-account.yml \
@@ -25,7 +30,7 @@ bosh2 create-env bosh-deployment/bosh.yml -n \
   -v gcp_credentials_json="$(cat ./gcp_credentials.json)" \
   -v project_id=${project_id} \
   -v service_account="terraform-service-account@${project_id}.iam.gserviceaccount.com" \
-  -v zone=us-central1-b \
+  -v zone=${zone} \
   -v tags=[internal,no-ip] \
   -v network="${env_name}-pcf-network" \
   -v subnetwork="${env_name}-bosh-subnet"
