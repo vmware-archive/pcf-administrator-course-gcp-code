@@ -21,7 +21,7 @@ instance_groups:
   instances: 1
   stemcell: bosh-google-kvm-ubuntu-trusty-go_agent
   azs:
-    - us-central1-a
+    - ((region))
   vm_type: small
   vm_extensions: 
   - public_ip
