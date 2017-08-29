@@ -1,8 +1,8 @@
 ---
 azs:
-- name: us-central1-a
+- name: ((zone))
   cloud_properties:
-    zone: us-central1-a
+    zone: ((zone))
 
 networks:
 - name: bosh-subnet
@@ -14,7 +14,7 @@ networks:
     range: 10.0.1.0/24
     gateway: 10.0.1.1
     azs:
-    - us-central1-a
+    - ((zone))
     cloud_properties:
       network_name: ((env_name))-pcf-network
       subnetwork_name: ((env_name))-bosh-subnet
@@ -264,7 +264,7 @@ disk_types:
 compilation:
   workers: 4
   network: bosh-subnet
-  az: us-central1-a
+  az: ((zone))
   reuse_compilation_vms: true
   vm_type: large.cpu
   vm_extensions:
